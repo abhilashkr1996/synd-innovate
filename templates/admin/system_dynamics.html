@@ -1,0 +1,94 @@
+{% extends "admin/base_admin_dashboard.html" %}
+
+{% block custom_dashboard %}
+<div class="container-fluid">
+
+    <div class="row">
+
+            <div class="col-xl-12 col-lg-12">
+                    <div class="card shadow mb-4">
+                      <div class="card-header py-3 text-center flex-row justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">System Dynamics</h6>
+                      </div>
+                      <div class="card-body overflow-auto text-center">
+                            <table class="table table-borderless" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <th>Input Parameters</th>
+                                    <th>System Behaviour</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td width="50%"><p>p (in minutes) :<span id="p_value"></span><br>(p is the average service time, <br>and is associated with the coefficient of variation in service of CVp)</p>
+                                                <div class="slidecontainer">
+                                                        <input type="range" min="0" max="60" value="29.8" class="slider" id="p_slider">
+                                                </div>
+                                        </td>
+                                        <td> 
+                                            <h5 class="font-weight-bolder">Average Waiting Time</h5>
+                                            <p id="awt"></p>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                            <td width="50%"><p>a (in minutes) :<span id="a_value"></span><br>(a is the average interarrival time,<br> and is associated with the coefficient of variation in arrivals of CVa)</p>
+                                                    <div class="slidecontainer">
+                                                            <input type="range" min="0" max="60" value="30.1" class="slider" id="a_slider">
+                                                    </div>
+                                            </td>
+                                            <td> 
+                                                    <h5 class="font-weight-bolder">Average Length of the Queue</h5>
+                                                    <p id="alq"></p>
+                                                </td>
+                                        </tr>
+
+                                        <tr>
+                                                <td width="50%"><p>m :<span id="m_value"></span><br>(m is the number of (identical) servers)</p>
+                                                        <div class="slidecontainer">
+                                                                <input type="range" min="2" max="10" value="2" class="slider" id="m_slider">
+                                                        </div>
+                                                </td>
+                                                <td> 
+                                                        <h5 class="font-weight-bolder">Utilization Rate</h5>
+                                                        <p id="ur"></p>
+                                                    </td>
+                                            </tr>
+
+                                            <tr>
+                                                    <td width="50%"><p>CVp :<span id="cvp_value"></span><br> (standard deviation of the service time(p))</p>
+                                                            <div class="slidecontainer">
+                                                                    <input type="range" min="1" max="100" value="1" class="slider" id="cvp_slider">
+                                                            </div>
+                                                    </td>
+                                                    <td> 
+                                                            <h5 class="font-weight-bolder">Arrival Rate</h5>
+                                                            <p id="ar"></p>
+                                                        </td>
+                                                </tr>
+
+                                                <tr>
+                                                        <td width="50%"><p>CVa :<span id="cva_value"></span><br>(standard deviation of the interarrival time(p))</p>
+                                                                <div class="slidecontainer">
+                                                                        <input type="range" min="1" max="100" value="1" class="slider" id="cva_slider">
+                                                                </div>
+                                                        </td>
+                                                        <td> 
+                                                                <h5 class="font-weight-bolder">Cycle Time</h5>
+                                                                <p id="ct"></p>
+                                                            </td>
+                                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                      </div>
+            </div>
+
+
+    </div>
+</div>
+{% endblock custom_dashboard %}
+
+{% block page_level_scripts %}
+<script src="{{ url_for('static', filename='js/system_dynamics.js') }}"></script>
+
+{% endblock page_level_scripts %}

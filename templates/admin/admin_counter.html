@@ -1,0 +1,155 @@
+{% extends "admin/base_admin_dashboard.html" %}
+
+{% block custom_dashboard %}
+<div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Counter Ops</h1>
+        </div>
+        
+        <!-- Content Row -->
+
+        <div class="row">
+
+          <!-- Area Chart -->
+          <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+              <!-- Card Header - Dropdown -->
+              <div class="card-header py-3 text-center flex-row justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">All Counters</h6>
+              </div>
+              <!-- Card Body -->
+              <div class="card-body overflow-auto" style="height:22em;">
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <th>Counter ID</th>
+                    <th>Counter Type</th>
+                    <th>N</th>
+                    <th>N<sub>online</sub></th>
+                    <th>N<sub>offline</sub></th>
+                    <th>Time to Live</th>
+                    <th>Slots</th>
+                  </thead>
+                  <tbody>
+                      {% for count in counters %}
+                      <tr>
+                          <td> {{ count.id }} </td>
+                          <td> {{ count.type }} </td>
+                          <td> {{ count.N }} </td>
+                          <td> {{ count.Nonline }} </td>
+                          <td> {{ count.Noffline }} </td>
+                          <td> {{ count.TTL }} </td>
+                          <td>
+                            <table class="table table-bordererd">
+                              <thead>
+                                <th>Slot ID</th>
+                                <th>Slot Timings</th>
+                              </thead>
+                              <tbody>
+                                {% for slot, slot_time in count.slots.items() %}
+                                <tr>
+                                  <td> {{ slot }}</td>
+                                  <td> {{ slot_time }}</td>
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-6 col-lg-6">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3 text-center flex-row justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Add Counter</h6>
+                  </div>
+                  <div class="card-body">
+                        <form class="text-center" id="admin_counter_submit" method="POST" action="/admin_add_counter">
+                            <div class="form-group">
+                                <input class="form-control form-control-user" name="type" placeholder="Counter Type" required />
+                              </div>
+                              <div class="form-group">
+                                  <input class="form-control form-control-user" name="id" placeholder="Counter ID" required />
+                              </div>
+                              <div class="form-group">
+                                <input type="date" name="ttl" class="form-control" required/>
+                              </div>
+                              <div class="form-group">
+                                <input type="number" class="form-control" name="N" placeholder="Maximum Number of requests per day (N)" max="150" required/>
+                              </div>
+                              <div class="form-row form-group">
+                                  <div class="col">
+                                      <input type="number" class="form-control" name="Nonline" placeholder="Percentage of Online Traffic of N" max="100" required/>
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" class="form-control" id="real_non" placeholder="Actual value of N online" readonly required/>
+                                    </div>
+                              </div>
+                              <div class="form-row form-group">
+                                  <div class="col">
+                                      <input type="number" class="form-control" name="Noffline" placeholder="Percentage of Offline Traffic of N" max="100" required/>
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" class="form-control" id="real_noff" placeholder="Actual value of N offline" readonly required/>
+                                    </div>
+                              </div>
+                              <div class="container">
+                                  <table id="slot" class="table order-list">
+                                  <thead>
+                                      <tr>
+                                          <td>Slot ID</td>
+                                          <td>Start Time</td>
+                                          <td>End Time</td>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td class="col-sm-4">
+                                              <input type="text" class="form-control" required/>
+                                          </td>
+                                          <td class="col-sm-4">
+                                              <input type="time" class="form-control" required/>
+                                          </td>
+                                          <td class="col-sm-3">
+                                              <input type="time" class="form-control" required/>
+                                          </td>
+                                          <td class="col-sm-2"><a class="deleteRow"></a>
+                              
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                                  <tfoot>
+                                      <tr>
+                                          <td colspan="5" class="text-center" style="text-align: left;">
+                                              <input type="button" class="btn btn-outline-primary" id="addslot" value="Add Slot" />
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                      </tr>
+                                  </tfoot>
+                              </table>
+                              </div>
+                              <div class="text-center">
+                                  <label class="mb-2" id="error">{{ msg }}</label>
+                              </div>
+                            <button class="btn btn-primary">Add</button>
+                          </form>
+                  </div>
+                </div>
+              </div>
+
+      </div>
+</div>
+{% endblock custom_dashboard %}
+
+{% block page_level_scripts %}
+<script src="{{ url_for('static', filename='js/admin_counter.js') }}"></script>
+{% endblock page_level_scripts %}

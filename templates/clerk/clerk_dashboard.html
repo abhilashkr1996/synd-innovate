@@ -1,0 +1,94 @@
+{% extends "clerk/base_clerk_dashboard.html" %}
+
+{% block custom_dashboard %}
+<div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        </div>
+
+        <!-- Content Row -->
+
+        <div class="row">
+
+          <!-- Pending Requests Card Example -->
+          <div class="col-xl-6 col-md-4 mb-4 text-center">
+                <div class="card shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                    <i class="fas fa-clock fa-2x"></i>
+                                  </div>
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-uppercase mb-1">Timer</div>
+                        <div class="h5 mb-0 font-weight-bold" id="timer"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <!-- Pending Requests Card Example -->
+          <div class="col-xl-6 col-md-4 mb-4 text-center">
+                <div class="card shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                    <i class="fas fa-id-card fa-2x"></i>
+                                  </div>
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-uppercase mb-1">REQUEST ID</div>
+                        <div class="h5 mb-0 font-weight-bold" id="request_id">{{ customer.req_id }}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+      </div>
+
+      <div class="row">
+
+          <!-- Area Chart -->
+          <div class="col-xl-12 col-lg-12">
+                <div class="card shadow mb-4">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 text-center flex-row justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Request Details</h6>
+                  </div>
+                  <!-- Card Body -->
+                  <div class="card-body text-center">
+                        <form class="user" method="POST" id="next_request" action="/next_request">
+                                <table class="table table-borderless" width="100%" cellspacing="0">
+                                        <tbody>
+                                                <tr>
+                                                  <td>User Name</td>
+                                                  <td>{{ customer.name }}</td>
+                                                </tr>
+                                                <tr>
+                                                        <td>User Email</td>
+                                                        <td>{{ customer.mail }}</td>
+                                                </tr>
+                                                <tr>
+                                                        <td>User Contact Number</td>
+                                                        <td>{{ customer.number }}</td>
+                                                </tr>
+                                        </tbody>
+                                </table>
+                                <textarea class="form-control" name="comments" rows="3" placeholder="Clerk Comments(Optional)"></textarea><br>
+                                <button type="submit" id="done" class="btn btn-success">Done</button>
+                        </form>
+                  </div>
+                </div>
+              </div>
+
+      </div>
+
+{% endblock custom_dashboard %}
+
+{% block page_level_scripts %}
+<script src="{{ url_for('static', filename='js/easytimer.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/clerk.js') }}"></script>
+
+{% endblock page_level_scripts %}

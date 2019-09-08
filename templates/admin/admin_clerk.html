@@ -1,0 +1,119 @@
+{% extends "admin/base_admin_dashboard.html" %}
+
+{% block custom_dashboard %}
+<div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Clerk Ops</h1>
+        </div>
+        
+        <!-- Content Row -->
+
+        <div class="row">
+
+          <!-- Area Chart -->
+          <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+              <!-- Card Header - Dropdown -->
+              <div class="card-header py-3 text-center flex-row justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">All Clerks</h6>
+              </div>
+              <!-- Card Body -->
+              <div class="card-body overflow-auto" style="height:22em;">
+                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <th>Clerk ID</th>
+                    <th>Clerk Name</th>
+                    <th>Clerk Mail</th>
+                    <th>Counter Assigned</th>
+                  </thead>
+                  <tbody>
+                      {% for clerk in clerks %}
+                      <tr>
+                          <td> {{ clerk.clerk_id }} </td>
+                          <td> {{ clerk.name }} </td>
+                          <td> {{ clerk.email }} </td>
+                          <td> {{ clerk.counter_id }} </td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-6 col-lg-6">
+                <div class="card shadow mb-4">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 text-center flex-row justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Add Clerk</h6>
+                  </div>
+                  <!-- Card Body -->
+                  <div class="card-body">
+                        <form class="text-center" id="admin_clerk" method="POST"  action="/add_clerk">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-user" name="clerk_name" placeholder="Clerk Name" required />
+                              </div>
+                              <div class="form-group">
+                                  <input type="email" class="form-control form-control-user" name="clerk_mail" placeholder="Clerk Mail" required />
+                              </div>
+                              <div class="form-group">
+                                  <input type="password" class="form-control form-control-user" name="new_password" placeholder="Password" required />
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-user" placeholder="Confirm Password" name="confirm_password" required />
+                                  </div>
+                                  <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" name="counter_id" placeholder="Counter ID to Assign" required />
+                                  </div>
+                              <div class="text-center">
+                                  <label class="mb-2 d-none" id="error"></label>
+                              </div>
+                              <div class="text-center">
+                                  <label id="server_msg" class="mb-2">{{ server_msg }}</label>
+                              </div>
+                            <button class="btn btn-primary">Add</button>
+                          </form>
+                  </div>
+                </div>
+              </div>
+
+      </div>
+
+      <br>
+
+      <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-6 col-lg-6">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 text-center flex-row justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Remove Clerk</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                      <form class="text-center" method="POST" action="/remove_clerk">
+                          <div class="form-group">
+                            <input type="text" class="form-control form-control-user" name="uid" placeholder="Clerk ID" required />
+                          </div>
+                          <div class="text-center">
+                              <label class="mb-2">{{server_msg_remove}}</label>
+                          </div>
+                          <button class="btn btn-primary">Remove</button>
+                        </form>
+                </div>
+              </div>
+            </div>
+  
+        </div>
+
+</div>
+
+{% endblock custom_dashboard %}
+
+{% block page_level_scripts %}
+<script src="{{ url_for('static', filename='js/admin_clerk.js') }}"></script>
+
+{% endblock page_level_scripts %}

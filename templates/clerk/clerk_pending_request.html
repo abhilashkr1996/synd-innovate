@@ -1,0 +1,48 @@
+{% extends "clerk/base_clerk_dashboard.html" %}
+
+{% block custom_dashboard %}
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Pending Requests</h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4 text-center">
+      <div class="card-header p-4">
+        <h6 class="m-0 font-weight-bold text-primary">Pending Requests for Today</h6>
+      </div>
+      <div class="card-body p-5">
+          
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Request Id</th>
+                <th>Scheduled Time</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for req in pending_request %}
+                    <tr>
+                        <td> {{ req.id }} </td>
+                        <td> {{ req.time }} </td>
+                    </tr>
+                {% endfor %}
+          </table>
+      </div>
+    </div>
+  </div>
+{% endblock custom_dashboard %}
+
+{% block page_level_scripts %}
+<script src="{{ url_for('static', filename='vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script>
+$(document).ready(function() {
+    $('#dataTable').DataTable();
+});
+</script>
+{% endblock page_level_scripts %}
+
+{% block custom_styles %}
+<link href="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">
+{% endblock custom_styles %}  
