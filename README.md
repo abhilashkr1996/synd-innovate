@@ -72,6 +72,9 @@ In the admin section you can add a clerk but you need to add the counter name al
 
 **As of now the integration is going on. Please bear with the crude way of interating with the application**
 
+Example:
+
+![screenshot](https://rawcdn.githack.com/abhilashkr1996/synd-innovate/fdf4c8ec647c76a362e995d28cf8cd10f25e9d35/images/screenshot.png)
 
 **Very Important Note**:
 - Only I can add a new branch. Please revert back to me for creation of new branch and the admin for that branch
