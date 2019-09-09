@@ -60,10 +60,24 @@ In the admin section you can add a clerk but you need to add the counter name al
 - Once you see requests, then you can see the timer running off.
 - Once you click "done" button, the next request in the queue appears.
 
+#### Generating requests:
+- Please go to this url - `http://localhost:5000/allocate/request`
+- Enter the details as follows:
+	- Mention the branch name as - 123
+	- counter as one of the counters you have created above - counter-1
+	- Slots as one of the slots you mentioned while creating the counter
+	- For now the input date is a text file - you have to give format - 'yyyy-mm-dd'
+	- user id give anything
+	- give the type as - online/offline. Please complete the text online or offline
+
+**As of now the integration is going on. Please bear with the crude way of interating with the application**
+
+
 **Very Important Note**:
 - Only I can add a new branch. Please revert back to me for creation of new branch and the admin for that branch
 - When this application is handed over to the Syndicate Bank, the database admin team will take care of creating new branches and adding their respective admins
 - For every branch you create, there needs to atleast a counter and a clerk assigned to the branch. We don't consider an empty branch to be existent. This is the job of the database admin to add atleast one counter and a clerk to the branch 
+
 
 
 Contact US:
