@@ -60,7 +60,7 @@ In the admin section you can add a clerk but you need to add the counter name al
 - Once you see requests, then you can see the timer running off.
 - Once you click "done" button, the next request in the queue appears.
 
-#### Generating requests:
+#### Booking an appointment:
 - Please go to this url - `http://localhost:5000/allocate/request`
 - Enter the details as follows:
 	- Mention the branch name as - 123
